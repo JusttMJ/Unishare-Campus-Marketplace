@@ -1,0 +1,188 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="Group11Unishare.SiteMaster" %>
+
+<!DOCTYPE html>
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%: Page.Title %> - Unishare UFH</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
+    <style>
+        /* Modern Premium Variables */
+        :root {
+            --nav-bg: #0f172a;       /* Deep Slate */
+            --sidebar-bg: #0f172a;   /* Matches Top Nav */
+            --bg-light: #f1f5f9;     /* Soft off-white for main area */
+            --accent-blue: #38bdf8;  /* Electric neon blue */
+            --text-muted: #94a3b8;
+            --text-light: #f8fafc;
+        }
+
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            background-color: var(--bg-light); 
+        }
+        
+        /* Top Navbar Customization */
+        .navbar {
+            background-color: var(--nav-bg) !important;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        /* Premium Dark Sidebar */
+        .sidebar {
+            min-height: calc(100vh - 56px);
+            background-color: var(--sidebar-bg);
+            border-right: 1px solid rgba(255,255,255,0.05);
+            padding-top: 1.5rem;
+        }
+        
+        .sidebar-heading {
+            font-size: 0.7rem;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 0 1.5rem;
+            margin-bottom: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        /* Sidebar Links & Hover Effects */
+        .sidebar .nav-link {
+            color: #cbd5e1;
+            font-weight: 500;
+            padding: 0.65rem 1rem;
+            margin: 0.2rem 1rem;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar .nav-link i { 
+            margin-right: 12px; 
+            font-size: 1.2rem; 
+            color: var(--text-muted); 
+            transition: all 0.3s ease;
+        }
+
+        /* The Magic Glow Hover */
+        .sidebar .nav-link:hover { 
+            color: #ffffff; 
+            background-color: rgba(255,255,255,0.05); 
+            transform: translateX(5px);
+        }
+        
+        .sidebar .nav-link:hover i { 
+            color: var(--accent-blue); 
+            transform: scale(1.1);
+        }
+
+        /* Logout button specific styling */
+        .logout-link { margin-top: auto; }
+        .sidebar .nav-link.text-danger:hover {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: #f87171 !important;
+        }
+        .sidebar .nav-link.text-danger:hover i { color: #f87171 !important; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-light); }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server"></asp:ContentPlaceHolder>
+</head>
+<body class="d-flex flex-column min-vh-100">
+    <form runat="server" class="d-flex flex-column flex-grow-1">
+        
+        <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+            <div class="container-fluid px-4">
+                <a class="navbar-brand fw-bold" href="Default.aspx">
+                    <i class="bi bi-intersect me-2" style="color: var(--accent-blue);"></i>Unishare
+                </a>
+                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item"><a class="nav-link" href="Default.aspx">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="Catalogue.aspx">Catalogue</a></li>
+                    </ul>
+                    <ul class="navbar-nav ms-auto align-items-center">
+                        <% if (Session["UserID"] == null) { %>
+                            <li class="nav-item"><a class="nav-link" href="Login.aspx">Login</a></li>
+                            <li class="nav-item ms-2"><a class="btn btn-primary btn-sm rounded-pill px-3 fw-bold" href="Register.aspx">Join Now</a></li>
+                        <% } else { %>
+                            <li class="nav-item align-self-center me-3 text-white-50 small">
+                                Welcome back, <span class="text-white fw-bold"><%= Session["UserName"] %></span>
+                            </li>
+                            <li class="nav-item"><a class="nav-link fs-5" href="Cart.aspx"><i class="bi bi-cart3"></i></a></li>
+                        <% } %>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container-fluid flex-grow-1 d-flex p-0">
+            <div class="row w-100 m-0">
+                
+                <% if (Session["UserID"] != null) { %>
+                <nav class="col-md-3 col-lg-2 d-none d-md-flex flex-column sidebar p-0">
+                    <div class="position-sticky d-flex flex-column h-100 pb-4">
+                        
+                        <div>
+                            <div class="sidebar-heading">Marketplace</div>
+                            <ul class="nav flex-column mb-3">
+                                <li class="nav-item"><a class="nav-link" href="Catalogue.aspx"><i class="bi bi-grid"></i> Catalogue</a></li>
+                                <li class="nav-item"><a class="nav-link" href="SellItem.aspx"><i class="bi bi-plus-circle"></i> Sell an Item</a></li>
+                            </ul>
+
+                            <div class="sidebar-heading">My Activity</div>
+                            <ul class="nav flex-column mb-3">
+                                <li class="nav-item"><a class="nav-link" href="Cart.aspx"><i class="bi bi-cart3"></i> My Cart</a></li>
+                                <li class="nav-item"><a class="nav-link" href="MyPurchases.aspx"><i class="bi bi-bag-check"></i> Purchases</a></li>
+                                <li class="nav-item"><a class="nav-link" href="MySales.aspx"><i class="bi bi-shop"></i> Sales</a></li>
+                            </ul>
+
+                            <div class="sidebar-heading">Settings</div>
+                            <ul class="nav flex-column mb-3">
+                                <li class="nav-item"><a class="nav-link" href="Profile.aspx"><i class="bi bi-person-circle"></i> Profile</a></li>
+                                
+                                <% if (Session["IsAdmin"] != null && Convert.ToBoolean(Session["IsAdmin"])) { %>
+                                    <li class="nav-item"><a class="nav-link text-warning" href="AdminDashboard.aspx"><i class="bi bi-shield-lock text-warning"></i> Admin Panel</a></li>
+                                <% } %>
+                            </ul>
+                        </div>
+                        
+                        <div class="mt-auto border-top border-secondary pt-3 px-3">
+                            <asp:LinkButton ID="btnSidebarLogout" runat="server" OnClick="btnLogout_Click" CssClass="nav-link text-danger w-100" CausesValidation="false">
+                                <i class="bi bi-box-arrow-left text-danger"></i> Logout
+                            </asp:LinkButton>
+                        </div>
+
+                    </div>
+                </nav>
+                <% } %>
+
+                <% string mainCssClass = Session["UserID"] != null ? "col-md-9 ms-sm-auto col-lg-10 px-md-5 py-5" : "col-12 px-md-5 py-5 container"; %>
+                <main class="<%= mainCssClass %>">
+                    <asp:ContentPlaceHolder ID="MainContent" runat="server"></asp:ContentPlaceHolder>
+                </main>
+
+            </div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    </form>
+</body>
+</html>

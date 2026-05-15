@@ -1,0 +1,51 @@
+﻿/* * Main.css
+ * Custom styles for the Unishare Platform 
+ */
+
+/* University of Fort Hare theme colors (Adjust if needed) */
+:root {
+    --ufh-primary-blue: #003366;
+    --ufh-secondary-gold: #FFD700;
+}
+
+body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Customizing Bootstrap's primary text color */
+.text-primary {
+    color: var(--ufh-primary-blue) !important;
+}
+
+/* Customizing Bootstrap's primary button */
+.btn-primary {
+    background-color: var(--ufh-primary-blue);
+    border-color: var(--ufh-primary-blue);
+    transition: all 0.3s ease;
+}
+
+    .btn-primary:hover {
+        background-color: #002244;
+        border-color: #002244;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    }
+
+/* Info Cards Hover Effect */
+.card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+    }
+
+/* Footer styling (for the master page) */
+.footer {
+    background-color: white;
+    border-top: 1px solid #e5e5e5;
+    padding: 20px 0;
+    margin-top: 50px;
+}
