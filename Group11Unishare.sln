@@ -5,6 +5,8 @@ VisualStudioVersion = 17.14.36408.4 d17.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Group11Unishare", "Group11Unishare\Group11Unishare.csproj", "{5CDB2F56-96EF-4C44-BD88-836EC4359FF5}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Group11Unishare.Tests", "Group11Unishare.Tests\Group11Unishare.Tests.csproj", "{83FE671A-F6B7-47BC-9B8B-04F2FDDA5914}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{5CDB2F56-96EF-4C44-BD88-836EC4359FF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5CDB2F56-96EF-4C44-BD88-836EC4359FF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5CDB2F56-96EF-4C44-BD88-836EC4359FF5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83FE671A-F6B7-47BC-9B8B-04F2FDDA5914}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83FE671A-F6B7-47BC-9B8B-04F2FDDA5914}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83FE671A-F6B7-47BC-9B8B-04F2FDDA5914}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83FE671A-F6B7-47BC-9B8B-04F2FDDA5914}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
