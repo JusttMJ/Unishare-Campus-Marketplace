@@ -111,11 +111,14 @@ namespace Group11Unishare
 
                 // THE NEW PROMO MATH
                 decimal discountPercent = Convert.ToDecimal(ViewState["DiscountPercent"]);
-                CheckoutTotals totals = PricingCalculator.CalculateTotals(subtotal, discountPercent, rdoDelivery.Checked);
-                decimal discountAmount = totals.DiscountAmount;
+                decimal discountAmount = subtotal * (discountPercent / 100m);
+                decimal discountedSubtotal = subtotal - discountAmount;
+
+                decimal deliveryFee = rdoDelivery.Checked ? 50.00m : 0.00m;
+                decimal total = discountedSubtotal + deliveryFee;
 
                 // Update UI Labels
-                lblSubtotal.Text = "R " + totals.Subtotal.ToString("0.00");
+                lblSubtotal.Text = "R " + subtotal.ToString("0.00");
 
                 if (discountAmount > 0)
                 {
@@ -127,11 +130,11 @@ namespace Group11Unishare
                     divDiscount.Visible = false;
                 }
 
-                lblDeliveryFee.Text = "R " + totals.DeliveryFee.ToString("0.00");
-                lblTotal.Text = "R " + totals.Total.ToString("0.00");
+                lblDeliveryFee.Text = "R " + deliveryFee.ToString("0.00");
+                lblTotal.Text = "R " + total.ToString("0.00");
 
                 // Save total to ViewState so we can use it during the final payment insertion
-                ViewState["OrderTotal"] = totals.Total;
+                ViewState["OrderTotal"] = total;
             }
             catch (Exception ex)
             {
@@ -144,7 +147,6 @@ namespace Group11Unishare
             lblError.Text = "";
             string userID = Session["UserID"].ToString();
             decimal totalAmount = Convert.ToDecimal(ViewState["OrderTotal"]);
-            decimal discountPercent = Convert.ToDecimal(ViewState["DiscountPercent"]);
 
             if (totalAmount == 0 && Convert.ToDecimal(ViewState["DiscountPercent"]) == 0) // Allows R0 totals IF they used a 100% off promo
             {
@@ -215,7 +217,8 @@ namespace Group11Unishare
                                         string selectedColor = row["selectedColor"].ToString();
 
                                         // Apply the same discount math to the individual order item!
-                                        decimal finalItemPrice = PricingCalculator.CalculateDiscountedPrice(originalPrice, discountPercent);
+                                        decimal itemDiscount = originalPrice * (Convert.ToDecimal(ViewState["DiscountPercent"]) / 100m);
+                                        decimal finalItemPrice = originalPrice - itemDiscount;
 
                                         string insertOrderItem = "INSERT INTO OrderItem (orderID, itemID, priceAtPurchase, sellerID, selectedColor) VALUES (@OrderID, @ItemID, @Price, @SellerID, @Color)";
                                         using (SqlCommand cmdInsert = new SqlCommand(insertOrderItem, conn, transaction))
