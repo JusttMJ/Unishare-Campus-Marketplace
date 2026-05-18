@@ -24,6 +24,8 @@ namespace Group11Unishare
 
     public static class PricingCalculator
     {
+        private const decimal DeliveryFeeAmount = 50.00m;
+
         public static decimal CalculateDiscountAmount(decimal amount, decimal discountPercent)
         {
             return amount * (discountPercent / 100m);
@@ -38,7 +40,7 @@ namespace Group11Unishare
         {
             decimal discountAmount = CalculateDiscountAmount(subtotal, discountPercent);
             decimal discountedSubtotal = subtotal - discountAmount;
-            decimal deliveryFee = includeDelivery ? 50.00m : 0.00m;
+            decimal deliveryFee = includeDelivery ? DeliveryFeeAmount : 0.00m;
             decimal total = discountedSubtotal + deliveryFee;
 
             return new CheckoutTotals(subtotal, discountPercent, discountAmount, discountedSubtotal, deliveryFee, total);
