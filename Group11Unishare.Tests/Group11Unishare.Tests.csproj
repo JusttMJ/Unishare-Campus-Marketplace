@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net48</TargetFramework>
     <LangVersion>latest</LangVersion>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="..\Group11Unishare\Classes\PricingCalculator.cs" Link="Classes\PricingCalculator.cs" />
+    <ProjectReference Include="..\Group11Unishare\Group11Unishare.csproj" />
   </ItemGroup>
 
 </Project>
