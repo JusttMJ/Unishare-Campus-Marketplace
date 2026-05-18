@@ -107,6 +107,7 @@
       <DependentUpon>Checkout.aspx</DependentUpon>
     </Compile>
     <Compile Include="Classes\DatabaseHelper.cs" />
+    <Compile Include="Classes\PricingCalculator.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
